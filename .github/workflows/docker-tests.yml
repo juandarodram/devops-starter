@@ -26,3 +26,9 @@ jobs:
     - name: Run tests inside Docker
       run: |
          docker run --rm -v ${{ github.workspace }}:/app devops-starter:latest npx jest
+
+    - name: Build and run container
+      run: |
+        docker build -t devops-starter:latest .
+        docker run --rm devops-starter:latest npm test
+         
