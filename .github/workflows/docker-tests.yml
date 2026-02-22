@@ -1,34 +1,26 @@
-name: DevOps Starter CI
+name: Docker Tests
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
 
 jobs:
-  build-and-test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # 1️⃣ Clonar el repo
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      # 2️⃣ Construir la imagen Docker
+      - name: Build Docker image
+        run: |
+          docker build -t devops-starter:latest .
 
-    - name: Build Docker image
-      run: |
-        docker build -t devops-starter:latest .
-
-    - name: Run tests inside Docker
-      run: |
-         docker run --rm -v ${{ github.workspace }}:/app devops-starter:latest npx jest
-
-    - name: Build and run container
-      run: |
-        docker build -t devops-starter:latest .
-        docker run --rm devops-starter:latest npm test
-         
+      # 3️⃣ Ejecutar tests dentro del contenedor
+      - name: Run tests inside Docker
+        run: |
+          docker run --rm devops-starter:latest npm test
