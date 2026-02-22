@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Clonar el repo
+      # 1️⃣ Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Construir la imagen Docker
+      # 2️⃣ Construir la imagen Docker (usa node:20-bullseye para evitar problemas de permisos)
       - name: Build Docker image
         run: |
           docker build -t devops-starter:latest .
 
-      # 3️⃣ Ejecutar tests dentro del contenedor
+      # 3️⃣ Ejecutar los tests dentro del contenedor sin montar volúmenes
       - name: Run tests inside Docker
         run: |
           docker run --rm devops-starter:latest npm test
