@@ -4,7 +4,7 @@ const app = express();
 
 // Endpoint raíz
 app.get("/", (req, res) => {
-  res.send("DevOps Starter App funcionando 🚀");
+  res.send("DevOps v2 funcionando 🚀");
 });
 
 // Endpoint de health check
